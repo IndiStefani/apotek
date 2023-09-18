@@ -23,11 +23,11 @@ Auth::routes();
 // auth admin
 Route::middleware(['auth', 'user-access:Admin'])->group(function () {
   
-    Route::get('/Admin', [HomeController::class, 'admin'])->name('admin.home');
+    Route::get('/super admin', [HomeController::class, 'admin'])->name('admin.adminhome');
 });
 
 // auth superuser
 Route::middleware(['auth', 'user-access:Super Admin'])->group(function () {
   
-    Route::get('/SuperAdmin', [HomeController::class, 'super'])->name('super.home');
+    Route::get('/SuperAdmin', [HomeController::class, 'super'])->name('super.superhome');
 });
