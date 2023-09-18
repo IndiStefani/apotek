@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
+});
+
+Auth::routes();
+
+// auth admin
+Route::middleware(['auth', 'user-access:Admin'])->group(function () {
+  
+    Route::get('/Admin', [HomeController::class, 'admin'])->name('admin.home');
+});
+
+// auth superuser
+Route::middleware(['auth', 'user-access:Super Admin'])->group(function () {
+  
+    Route::get('/SuperAdmin', [HomeController::class, 'super'])->name('super.home');
 });
