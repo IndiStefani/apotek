@@ -1,23 +1,32 @@
 @extends('layouts.app')
-  
 @section('content')
+
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-  
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+    <h1>Dashboard</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Statistik</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Jumlah User</h5>
+                            <p class="card-text">{{ $totalUsers }}</p>
                         </div>
-                    @endif
-  
-                    You are a Super Admin.
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Daftar Obat</h5>
+                            <p class="card-text">{{ $totalObats }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection
