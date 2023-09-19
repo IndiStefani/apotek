@@ -12,7 +12,7 @@ class ObatController extends Controller
     public function indexAdmin()
     {
         $obatList = Obat::all();
-        return view('admin.obat.index', compact('obatList'));
+        return view('admin.index', compact('obatList'));
     }
 
     // Show the form for creating a new obat
@@ -36,9 +36,9 @@ class ObatController extends Controller
 
         // Handle image upload
         if ($request->hasFile('poster')) {
-            $poster = $request -> file('poster');
-            $namaPoster = time() . '.' . $poster -> getClientOriginalExtension();
-            $poster -> move(public_path('image'), $namaPoster); // Store the uploaded image in the 'storage/app/public/obat_images' directory
+            $poster = $request->file('poster');
+            $namaPoster = time() . '.' . $poster->getClientOriginalExtension();
+            $poster->move(public_path('image'), $namaPoster); // Store the uploaded image in the 'storage/app/public/obat_images' directory
         } else {
             $poster = null; // No image uploaded
         }
@@ -81,12 +81,13 @@ class ObatController extends Controller
             ->with('success', 'Obat updated successfully');
     }
 
+
     // Remove the specified obat from the database
     public function destroy(Obat $obat)
     {
         $obat->delete();
 
-        return redirect()->route('adminobat.index')
+        return redirect()->route('super.superobat')
             ->with('success', 'Obat deleted successfully');
     }
 

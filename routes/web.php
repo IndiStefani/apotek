@@ -48,7 +48,7 @@ Route::prefix('SuperAdmin/Obat')->middleware(['auth', 'user-access:Super Admin']
     Route::post('/store', [ObatController::class, 'store'])->name('superobat.store');
     Route::get('/edit/{obat}', [ObatController::class, 'edit'])->name('superobat.edit');
     Route::put('/update/{obat}', [ObatController::class, 'update'])->name('superobat.update'); 
-    Route::delete('/destroy/{obat}', [ObatController::class, 'destroy'])->name('superobat.destroy');
+    Route::delete('/destroy/{obat}', [ObatController::class, 'destroy'])->name('super.destroy');
 });
 
 Route::prefix('SuperAdmin/User')->middleware(['auth', 'user-access:Super Admin'])->group(function () {
