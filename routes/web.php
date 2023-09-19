@@ -33,7 +33,7 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
 
 // superuser dashboard
 Route::middleware(['auth', 'user-access:Super Admin'])->group(function () { 
-    Route::get('/SuperAdmin/Dashboard', [HomeController::class, 'super'])->name('super.dashboard');
+    Route::get('/SuperAdmin/Dashboard', [HomeController::class, 'super'])->name('super.superhome');
 });
 
 Route::prefix('Admin/Obat')->middleware(['auth', 'user-access:Admin'])->group(function () {
@@ -43,8 +43,8 @@ Route::prefix('Admin/Obat')->middleware(['auth', 'user-access:Admin'])->group(fu
 });
 
 Route::prefix('SuperAdmin/Obat')->middleware(['auth', 'user-access:Super Admin'])->group(function () {
-    Route::get('/', [ObatController::class, 'indexSuper'])->name('superobat.index');
-    Route::get('/add', [ObatController::class, 'create'])->name('superobat.create');
+    Route::get('/', [ObatController::class, 'indexSuper'])->name('super.superobat');
+    Route::get('/add', [ObatController::class, 'create'])->name('super.create');
     Route::post('/store', [ObatController::class, 'store'])->name('superobat.store');
     Route::get('/edit/{obat}', [ObatController::class, 'edit'])->name('superobat.edit');
     Route::put('/update/{obat}', [ObatController::class, 'update'])->name('superobat.update'); 

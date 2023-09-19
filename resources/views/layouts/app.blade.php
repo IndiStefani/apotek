@@ -122,7 +122,7 @@
                         <ul class="nav flex-column">
                         @if(Auth::user()->Super())
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link active" href="{{ route('super.superhome') }}">
                                     Dashboard
                                 </a>
                             </li>
@@ -133,7 +133,7 @@
                             </li>
                         @endif
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('super.superobat') }}">
                                     Daftar Obat
                                 </a>
                             </li>

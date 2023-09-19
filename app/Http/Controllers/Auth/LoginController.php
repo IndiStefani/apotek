@@ -57,9 +57,9 @@ class LoginController extends Controller
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             if (auth()->user()->usertype == 'Super Admin') {
-                return redirect()->route('super.dashboard');
+                return redirect()->route('super.superhome');
             }else{
-                return redirect()->route('adminobat.index');
+                return redirect()->route('admin.adminhome');
             }
         }else{
             return redirect()->route('login')

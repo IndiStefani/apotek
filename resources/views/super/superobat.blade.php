@@ -1,33 +1,14 @@
 @extends('layouts.app')
 @section('content')
 
-<!-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-  
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-  
-                    You are a Super Admin.
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 
-<div class="content-wrapper" style="background: gray;">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header" style="background: #ffc107;">
+    <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Surat Masuk</h1>
+                    <h1 class="m-0 text-dark">Daftar Obat</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -35,8 +16,11 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content" style="background: #ffc107;">
+    <section class="content">
         <div class="container-fluid">
+            <a class="btn btn-primary btn-md mt-4 mb-3" href="{{ route('super.create') }}" role="button">
+                Create Data
+            </a>
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-12">
@@ -44,9 +28,9 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table class="table table-bordered">
-                                <thead>
+                                <thead align="center">
                                     <tr>
-                                        <th style="width: 10px;">No</th>
+                                        <th style="width: 10px;" class="text-center">No</th>
                                         <th>Gambar</th>
                                         <th>Nama Obat</th>
                                         <th>Kategori</th>
@@ -56,19 +40,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($allSuratMasuk as $key=>$obat)
-                                    <tr>
+                                    @foreach($obatList as $key=>$obat)
+                                    <tr class="align-middle text-center">
                                         <td>{{$key+1}}</td>
-                                        <td>{{$obat->Poster}}</td>
-                                        <td>{{$obat->Nama}}</td>
-                                        <td>{{$obat->Kategori}}</td>
-                                        <td>{{$obat->Jumlah}}</td>
-                                        <td>{{$obat->Harga}}</td>
+                                        <td><img src="{{ asset('image/' .$obat->poster) }}" alt="{{$obat->nama}}" width="100"></td>
+                                        <td>{{$obat->nama}}</td>
+                                        <td>{{$obat->kategori}}</td>
+                                        <td>{{$obat->jumlah}}</td>
+                                        <td>{{$obat->harga}}</td>
                                         <td>
-                                            <div class="btn btn-primary" href="{{route('obat.show', $obat->id)}}">
-                                                <i class="fas fa-eye"></i>
-                                                Lihat
-                                            </div>
+                                            <a href="#" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <form action="#" method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this obat?')">
+                                                    <i class="fas fa-trash"></i> Delete
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach
