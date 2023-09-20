@@ -51,7 +51,7 @@ class ObatController extends Controller
         $obat = new Obat;
         $obat->poster = $namaPoster; // Store the image path in the 'poster' column
         $obat->nama = $validatedData['nama'];
-        $obat->deskripsi = $validatedData['deskripi'];
+        $obat->deskripsi = $validatedData['deskripsi'];
         $obat->kategori_id = $validatedData['kategori_id'];
         $obat->jumlah = $validatedData['jumlah'];
         $obat->harga = $validatedData['harga'];

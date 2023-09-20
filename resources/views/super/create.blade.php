@@ -37,7 +37,7 @@
 
                                 <!-- Description Input -->
                                 <div class="form-group">
-                                    <label for="description">Deskripsi:</label>
+                                    <label for="deskripsi">Deskripsi:</label>
                                     <textarea name="deskripsi" id="deskripsi" class="form-control"></textarea>
                                 </div>
 
