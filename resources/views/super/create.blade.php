@@ -20,7 +20,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('superobat.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('super.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <!-- Gambar Input -->
@@ -35,10 +35,20 @@
                                     <input type="text" name="nama" id="nama" class="form-control" required>
                                 </div>
 
-                                <!-- Kategori Input -->
+                                <!-- Description Input -->
+                                <div class="form-group">
+                                    <label for="description">Deskripsi:</label>
+                                    <textarea name="deskripsi" id="deskripsi" class="form-control"></textarea>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="kategori">Kategori:</label>
-                                    <input type="text" name="kategori" id="kategori" class="form-control" required>
+                                    <select name="kategori_id" id="kategori" class="form-control" required>
+                                        <option value="">Pilih kategori</option>
+                                        @foreach ($kategoriList as $key=>$kategori)
+                                        <option value="{{ $kategori->id }}">{{$kategori->nm_kategori}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <!-- Jumlah Input -->

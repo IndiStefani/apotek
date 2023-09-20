@@ -19,7 +19,7 @@
     <section class="content">
         <div class="container-fluid">
             <a class="btn btn-primary btn-md mt-4 mb-3" href="{{ route('super.create') }}" role="button">
-                Create Data
+                Tambah Obat
             </a>
             <!-- Small boxes (Stat box) -->
             <div class="row">
@@ -28,11 +28,12 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table class="table table-bordered">
-                                <thead align="center">
-                                    <tr>
+                                <thead>
+                                    <tr class="text-center">
                                         <th style="width: 10px;" class="text-center">No</th>
                                         <th>Gambar</th>
                                         <th>Nama Obat</th>
+                                        <th>Deskripsi Obat</th>
                                         <th>Kategori</th>
                                         <th>Jumlah</th>
                                         <th>Harga</th>
@@ -45,13 +46,15 @@
                                         <td>{{$key+1}}</td>
                                         <td><img src="{{ asset('image/' .$obat->poster) }}" alt="{{$obat->nama}}" width="100"></td>
                                         <td>{{$obat->nama}}</td>
-                                        <td>{{$obat->kategori}}</td>
+                                        <td>{{$obat->deskripsi}}</td>
+                                        <td>{{$obat->kategori->nm_kategori}}</td>
                                         <td>{{$obat->jumlah}}</td>
                                         <td>{{$obat->harga}}</td>
                                         <td>
-                                            <a href="#" class="btn btn-primary btn-sm">
+                                            <a href="{{ route('super.edit', ['obat' => $obat->id]) }}" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-edit"></i> Edit
                                             </a>
+
                                             <form action="{{ route('super.destroy', $obat->id) }}" method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
