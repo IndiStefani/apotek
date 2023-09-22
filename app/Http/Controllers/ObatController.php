@@ -12,7 +12,7 @@ class ObatController extends Controller
     public function indexAdmin()
     {
         $obatList = Obat::all();
-        return view('admin.index', compact('obatList'));
+        return view('admin.dashboard', compact('obatList'));
     }
 
     // Show the form for creating a new obat
@@ -27,39 +27,7 @@ class ObatController extends Controller
     // Store a newly created obat in the database
     public function store(Request $request)
     {
-        // Validate the form data
-        $validatedData = $request->validate([
-            'poster' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the image validation rules as needed
-            'nama' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-            'kategori_id' => 'required|string|max:255',
-            'jumlah' => 'required|numeric|max:255',
-            'harga' => 'required|numeric|max:255',
-            // Add validation rules for other obat properties here
-        ]);
-
-        // Handle image upload
-        if ($request->hasFile('poster')) {
-            $poster = $request->file('poster');
-            $namaPoster = time() . '.' . $poster->getClientOriginalExtension();
-            $poster->move(public_path('image'), $namaPoster); // Store the uploaded image in the 'storage/app/public/obat_images' directory
-        } else {
-            $poster = null; // No image uploaded
-        }
-
-        // Create a new obat record
-        $obat = new Obat;
-        $obat->poster = $namaPoster; // Store the image path in the 'poster' column
-        $obat->nama = $validatedData['nama'];
-        $obat->deskripsi = $validatedData['deskripsi'];
-        $obat->kategori_id = $validatedData['kategori_id'];
-        $obat->jumlah = $validatedData['jumlah'];
-        $obat->harga = $validatedData['harga'];
-        // Set other obat properties here
-        $obat->save();
-
-        // Redirect back to the obat index page with a success message
-        return redirect()->route('super.superobat')->with('success', 'Obat berhasil ditambahkan');
+        dd($request);
     }
 
     // Display the specified obat for editing (Admin)
@@ -73,11 +41,11 @@ class ObatController extends Controller
     public function update(Request $request, Obat $obat)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-            'kategori_id' => 'required|string|max:255',
-            'jumlah' => 'required|numeric|max:255',
-            'harga' => 'required|numeric|max:255',
+            'poster' => 'required|string|max:255',
+            'nm_obat' => 'required|string|max:255',
+            'kategori_id' => 'required|integer',
+            'stok' => 'required|integer',
+            'harga' => 'required|integer',
             // Add validation rules for other obat properties here
         ]);
 

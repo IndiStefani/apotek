@@ -32,13 +32,7 @@
                                 <!-- Nama Obat Input -->
                                 <div class="form-group">
                                     <label for="nama">Nama Obat:</label>
-                                    <input type="text" name="nama" id="nama" class="form-control" required>
-                                </div>
-
-                                <!-- Description Input -->
-                                <div class="form-group">
-                                    <label for="deskripsi">Deskripsi:</label>
-                                    <textarea name="deskripsi" id="deskripsi" class="form-control"></textarea>
+                                    <input type="text" name="nm_obat" id="nama" class="form-control" required>
                                 </div>
 
                                 <div class="form-group">
@@ -54,7 +48,7 @@
                                 <!-- Jumlah Input -->
                                 <div class="form-group">
                                     <label for="jumlah">Jumlah:</label>
-                                    <input type="number" name="jumlah" id="jumlah" class="form-control" required>
+                                    <input type="number" name="stok" id="stok" class="form-control" required>
                                 </div>
 
                                 <!-- Harga Input -->

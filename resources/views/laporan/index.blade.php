@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Daftar Obat</h1>
+                    <h1 class="m-0 text-dark">Laporan Penjualan</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -18,8 +18,8 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <a class="btn btn-primary btn-md mt-4 mb-3" href="{{ route('super.create') }}" role="button">
-                Tambah Obat
+            <a class="btn btn-primary btn-md mt-4 mb-3" href="{{ route('laporan.create') }}" role="button">
+                Tambah Laporan
             </a>
             <!-- Small boxes (Stat box) -->
             <div class="row">
@@ -31,29 +31,21 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th style="width: 10px;" class="text-center">No</th>
-                                        <th>Gambar</th>
-                                        <th>Nama Obat</th>
-                                        <th>Kategori</th>
-                                        <th>Stok</th>
-                                        <th>Harga</th>
+                                        <th>Kode Transaksi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($obatList as $key=>$obat)
+                                    @foreach($penjualanList as $key=>$penjualan)
                                     <tr class="align-middle text-center">
                                         <td>{{$key+1}}</td>
-                                        <td><img src="{{ asset('image/' .$obat->poster) }}" alt="{{$obat->nm_obat}}" width="100"></td>
-                                        <td>{{$obat->nm_obat}}</td>
-                                        <td>{{$obat->kategori->nm_kategori}}</td>
-                                        <td>{{$obat->stok}}</td>
-                                        <td>Rp. {{$obat->harga}}</td>
+                                        <td>{{$penjualan->kd_transaksi}}</td>
                                         <td>
-                                            <a href="{{ route('super.edit', ['obat' => $obat->id]) }}" class="btn btn-primary btn-sm">
+                                            <a href="{{ route('laporan.edit', ['penjualan' => $penjualan->id]) }}" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-edit"></i> Edit
                                             </a>
 
-                                            <form action="{{ route('super.destroy', $obat->id) }}" method="POST" style="display: inline;">
+                                            <form action="{{ route('laporan.destroy', $penjualan->id) }}" method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this obat?')">

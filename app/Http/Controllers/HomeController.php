@@ -28,7 +28,7 @@ class HomeController extends Controller
      public function admin(): View
     {
         $obat = Obat::all();
-        return view('admin.adminhome', compact('obat'));
+        return view('admin.dashboard', compact('obat'));
     } 
   
     /**

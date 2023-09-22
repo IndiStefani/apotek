@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Edit Obat</h1>
+                    <h1 class="m-0 text-dark">Tambah Obat Baru</h1>
                 </div>
             </div>
         </div>
@@ -20,20 +20,30 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('super.update', ['obat' => $obat->id]) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('super.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                @method('PUT')
+
+                                <!-- Gambar Input -->
+                                <div class="form-group">
+                                    <label for="poster">Gambar:</label>
+                                    <input type="file" name="poster" id="poster" class="form-control" required>
+                                </div>
 
                                 <!-- Nama Obat Input -->
                                 <div class="form-group">
                                     <label for="nama">Nama Obat:</label>
-                                    <input type="text" name="nama" id="nama" class="form-control" value="{{ $obat->nama }}" required>
+                                    <input type="text" name="nama" id="nama" class="form-control" required>
                                 </div>
 
-                                <!-- Kategori Input -->
+                                <!-- Description Input -->
+                                <div class="form-group">
+                                    <label for="deskripsi">Deskripsi:</label>
+                                    <textarea name="deskripsi" id="deskripsi" class="form-control"></textarea>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="kategori">Kategori:</label>
-                                    <select name="kategori_id" id="kategori" class="form-control" value="{{ $obat->nama }}" required>
+                                    <select name="kategori_id" id="kategori" class="form-control" required>
                                         <option value="">Pilih kategori</option>
                                         @foreach ($kategoriList as $key=>$kategori)
                                         <option value="{{ $kategori->id }}">{{$kategori->nm_kategori}}</option>
@@ -44,17 +54,17 @@
                                 <!-- Jumlah Input -->
                                 <div class="form-group">
                                     <label for="jumlah">Jumlah:</label>
-                                    <input type="number" name="jumlah" id="jumlah" class="form-control" value="{{ $obat->jumlah }}" required>
+                                    <input type="number" name="jumlah" id="jumlah" class="form-control" required>
                                 </div>
 
                                 <!-- Harga Input -->
                                 <div class="form-group">
                                     <label for="harga">Harga:</label>
-                                    <input type="number" name="harga" id="harga" class="form-control" value="{{ $obat->harga }}" required>
+                                    <input type="number" name="harga" id="harga" class="form-control" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Update Obat</button>
+                                    <button type="submit" class="btn btn-primary">Create Obat</button>
                                 </div>
                             </form>
                         </div>
