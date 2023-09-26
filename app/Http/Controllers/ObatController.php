@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Models\Obat; // Make sure to import the Obat model
 use App\Models\Kategori;
 
@@ -24,11 +26,40 @@ class ObatController extends Controller
         return view('super.create', compact('obatList'));
     }
 
-    // Store a newly created obat in the database
+
     public function store(Request $request)
     {
-        dd($request);
+        $request->validate([
+            'poster' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048|nullable',
+            'nm_obat' => 'required',
+            'kategori_id' => 'required',
+            'stok' => 'required|integer',
+            'harga' => 'required|numeric',
+        ]);
+
+        if ($request->hasFile('poster')) {
+            $poster = $request->file('poster');
+            $namaposter = time() . '.' . $poster->getClientOriginalExtension();
+            $poster->move(public_path('image'), $namaposter); // Simpan poster di direktori publik
+        } else {
+            $namaposter = null; // Jika tidak ada poster yang diunggah
+        }
+
+        Obat::create([
+            'poster' => $namaposter,
+            'nm_obat' => $request->input('nm_obat'),
+            'kategori_id' => $request->input('kategori_id'),
+            'stok' => $request->input('stok'),
+            'harga' => $request->input('harga'),
+        ]);
+
+        if (Auth::user()->Super()) {
+            return redirect()->route('super.superobat')->with('success', 'Obat telah ditambahkan.');
+        } else {
+            return redirect()->route('admin.dashboard')->with('success', 'Obat telah ditambahkan.');
+        }
     }
+
 
     // Display the specified obat for editing (Admin)
     public function edit(Obat $obat)
@@ -36,6 +67,7 @@ class ObatController extends Controller
         $kategoriList = Kategori::all();
         return view('super.update', compact('obat', 'kategoriList'));
     }
+
 
     // Update the specified obat in the database
     public function update(Request $request, Obat $obat)
@@ -59,6 +91,16 @@ class ObatController extends Controller
     // Remove the specified obat from the database
     public function destroy(Obat $obat)
     {
+        // Check if the obat has a poster (image)
+        if ($obat->poster) {
+            $namaposter = public_path('image/' . $obat->poster);
+    
+            if (File::exists($namaposter)) {
+                File::delete($namaposter);
+            }
+        }
+
+        // Delete the obat record from the database
         $obat->delete();
 
         return redirect()->route('super.superobat')

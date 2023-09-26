@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\TransaksiController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -62,4 +62,16 @@ Route::prefix('Laporan')->middleware(['auth', 'user-access:Super Admin, Admin'])
     Route::get('/penjualan/{penjualan}/edit', [PenjualanController::class, 'edit'])->name('laporan.edit');
     Route::put('/penjualan/{penjualan}', [PenjualanController::class, 'update'])->name('laporan.update');
     Route::delete('/penjualan/{penjualan}', [PenjualanController::class, 'destroy'])->name('laporan.destroy');
+});
+
+
+// transaksi
+Route::prefix('Transaksi')->middleware(['auth', 'user-access:Super Admin, Admin'])->group(function () {
+    Route::get('/Transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/Transaksi/{Transaksi}', [TransaksiController::class, 'show'])->name('transaksi.show');
+    Route::get('/Transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create');
+    Route::post('/Transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');
+    Route::get('/Transaksi/{Transaksi}/edit', [TransaksiController::class, 'edit'])->name('transaksi.edit');
+    Route::put('/Transaksi/{Transaksi}', [TransaksiController::class, 'update'])->name('transaksi.update');
+    Route::delete('/Transaksi/{Transaksi}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
 });

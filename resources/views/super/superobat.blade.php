@@ -27,7 +27,7 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table  id="table_id" border=1 class="display">
                                 <thead>
                                     <tr class="text-center">
                                         <th style="width: 10px;" class="text-center">No</th>
