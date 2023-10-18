@@ -24,10 +24,10 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="card">
+                    <div class="card border-0">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table  id="table_id" border=1 class="display">
+                            <table id="table_id" class="display">
                                 <thead>
                                     <tr class="text-center">
                                         <th style="width: 10px;" class="text-center">No</th>
@@ -71,4 +71,3 @@
     </section>
 
     @endsection
-    

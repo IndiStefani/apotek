@@ -1,64 +1,121 @@
 @extends('layouts.app')
 @section('content')
 
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <!-- Page Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Transaksi</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Transaksi</li>
+                    </ul>
+                </div>
+                <div class="col-auto float-right ml-auto">
+                    <!-- Tombol untuk memicu modal -->
+                    <a href="{{ route('transaksi.create') }}" class="btn btn-primary">Tambah Transaksi</a>
 
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Transaksi</h1>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+        <div class="row filter-row">
+            <div class="col-sm-6 col-md-3">
+                <div class="form-group form-focus select-focus">
+                    <select class="select floating">
+                        <option>Select Status</option>
+                        <option>Accepted</option>
+                        <option>Declined</option>
+                        <option>Expired</option>
+                    </select>
+                    <label class="focus-label">Status</label>
+                </div>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a href="#" class="btn btn-success btn-block"> Search </a>
+            </div>
+        </div>
+        <!-- /Search Filter -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 ">
+                        <thead>
+                            <tr>
+                                <th>Kode Penjualan</th>
+                                <th>Nama Klien</th>
+                                <th>Tanggal Penjualan</th>
+                                <th>Total</th>
+                                <th>Opsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($transaksi as $transaksi )
+                            <tr>
+                                <td hidden class="ids">{{ $transaksi->id }}</td>
+                                <td><a href="{{ url('estimate/view/'.$transaksi->kd_transaksi) }}">{{ $transaksi->kd_transaksi }}</a></td>
+                                <td>{{ $transaksi->nm_klien }}</td>
+                                <td>{{ $transaksi->created_at }}</td> {{-- Format tanggal sesuai dengan kebutuhan --}}
+                                <td>Rp{{ $transaksi->total_harga }}</td>
+                                <td></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
+    <!-- /Page Content -->
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <a class="btn btn-primary btn-md mt-4 mb-3" href="{{ route('laporan.create') }}" role="button">
-                Tambah Laporan
-            </a>
-
-            <!-- Small boxes (Stat box) -->
-            <div class="row">
-                <div class="col-lg-12">
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th style="width: 10px;" class="text-center">No</th>
-                                        <th>Kode Transaksi</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($transaksiList as $key=>$obat)
-                                    <tr class="align-middle text-center">
-                                        <td>{{$key+1}}</td>
-                                        <td>{{$obat->kd_transaksi}}</td>
-                                        <td>
-                                            <a href="" class="btn btn-primary btn-sm">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </a>
-
-                                            <form action="" method="POST" style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this obat?')">
-                                                    <i class="fas fa-trash"></i> Delete
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+    <!-- Delete Estimate Modal -->
+    <div class="modal custom-modal fade" id="delete_estimate" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-header">
+                        <h3>Delete Estimate</h3>
+                        <p>Are you sure want to delete?</p>
                     </div>
-    </section>
+                    <form action="" method="POST">
+                        @csrf
+                        <input type="hidden" name="id" class="e_id" value="">
+                        <input type="hidden" name="estimate_number" class="estimate_number" value="">
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-primary continue-btn submit-btn">Delete</button>
+                            </div>
+                            <div class="col-6">
+                                <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Estimate Modal -->
 
-    @endsection
+</div>
+<!-- /Page Wrapper -->
+
+@section('script')
+{{-- delete model --}}
+<script>
+    $(document).on('click', '.delete_estimate', function() {
+        var _this = $(this).parents('tr');
+        $('.e_id').val(_this.find('.ids').text());
+        $('.estimate_number').val(_this.find('.estimate_number').text());
+    });
+</script>
+
+
+@endsection
+@endsection

@@ -2,31 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Obat;
-use Illuminate\Http\Request;
 use App\Models\Transaksi;
+use App\Models\Obat;
+use App\Models\Detail;
+use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
 {
     // Display a list of penjualan
     public function index()
     {
-        $transaksiList = Obat::all();
-        return view('transaksi.index', compact('transaksiList'));
+        $detail = Detail::all();
+        $transaksi = Transaksi::all();
+        return view('transaksi.index', compact('transaksi', 'detail'));
     }
 
     // Show the form to add a new Penjualan record
+    // Show the form for creating a new obat
     public function create()
     {
-        // Fetch data you may need in the form, e.g., list of available barangs
-        $transaksiList = Obat::all();
-
-        return view('laporan.create', compact('transaksiList'));
+        $transaksi = Transaksi::all();
+        $obat = Obat::all();
+        return view('transaksi.create', compact('transaksi', 'obat',));
     }
 
-    // Display the specified penjualan
-    public function show(Obat $obat)
+    // Menyimpan data transaksi dan detail
+    public function store(Request $request)
     {
-        return view('transaksi.show', compact('transaksi'));
+        dd($request);
     }
 }
