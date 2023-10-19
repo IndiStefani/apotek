@@ -18,8 +18,6 @@ class Detail extends Model
         'nm_obat',
         'qty',
         'sub_total',
-        'created_at', 
-        'updated_at'
     ];
 
 

@@ -56,8 +56,8 @@ Route::prefix('Transaksi')->middleware(['auth', 'user-access:Super Admin, Admin'
     Route::get('/', [TransaksiController::class, 'index'])->name('transaksi.index');
     Route::get('/add', [TransaksiController::class, 'create'])->name('transaksi.create');
     Route::post('/store', [TransaksiController::class, 'store'])->name('transaksi.store');
+    Route::get('/view/{kd_transaksi}', [TransaksiController::class, 'view'])->name('transaksi.view');
     Route::get('/edit/{Transaksi}', [TransaksiController::class, 'edit'])->name('transaksi.edit');
     Route::put('/update/{Transaksi}', [TransaksiController::class, 'update'])->name('transaksi.update');
-    Route::delete('destroy/{Transaksi}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
-    Route::post('/simpan-sementara', [TransaksiController::class], 'simpanSementara')->name(('tempData'));
+    Route::delete('destroy/{id}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
 });

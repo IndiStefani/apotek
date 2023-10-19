@@ -18,8 +18,6 @@ class Transaksi extends Model
         'kd_transaksi',
         'nm_klien',
         'total_harga',
-        'created_at', 
-        'updated_at'
     ];
 
     public function details()

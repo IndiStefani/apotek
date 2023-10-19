@@ -60,7 +60,7 @@
                             @foreach ($transaksi as $transaksi )
                             <tr>
                                 <td hidden class="ids">{{ $transaksi->id }}</td>
-                                <td><a href="{{ url('estimate/view/'.$transaksi->kd_transaksi) }}">{{ $transaksi->kd_transaksi }}</a></td>
+                                <td><a href="{{ route('transaksi.view', ['kd_transaksi' => $transaksi->kd_transaksi]) }}">{{ $transaksi->kd_transaksi }}</a></td>
                                 <td>{{ $transaksi->nm_klien }}</td>
                                 <td>{{ $transaksi->created_at }}</td> {{-- Format tanggal sesuai dengan kebutuhan --}}
                                 <td>Rp{{ $transaksi->total_harga }}</td>

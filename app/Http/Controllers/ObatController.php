@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use App\Models\Obat; // Make sure to import the Obat model
+use App\Models\Obat;
 use App\Models\Kategori;
 
 class ObatController extends Controller
