@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ObatController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\TransaksiController;
+use App\Models\Kategori;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -49,6 +51,15 @@ Route::prefix('SuperAdmin/Obat')->middleware(['auth', 'user-access:Super Admin']
     Route::get('/edit/{obat}', [ObatController::class, 'edit'])->name('super.edit');
     Route::put('/update/{obat}', [ObatController::class, 'update'])->name('super.update');
     Route::delete('/destroy/{obat}', [ObatController::class, 'destroy'])->name('super.destroy');
+});
+
+Route::prefix('SuperAdmin/Kategori')->middleware(['auth', 'user-access:Super Admin'])->group(function () {
+    Route::get('/', [KategoriController::class, 'indexKategori'])->name('super.indexKategori');
+    Route::get('/add', [kategoriController::class, 'create'])->name('super.kategoriCreate');
+    Route::post('/store', [kategoriController::class, 'store'])->name('super.kategoriStore');
+    Route::get('/edit/{kategori}', [kategoriController::class, 'edit'])->name('super.kategoriEdit');
+    Route::put('/update/{kategori}', [kategoriController::class, 'update'])->name('super.kategoriUpdate');
+    Route::delete('/destroy/{id}', [kategoriController::class, 'destroy'])->name('super.kategoriDestroy');
 });
 
 // transaksi
