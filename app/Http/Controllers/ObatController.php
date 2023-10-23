@@ -73,11 +73,10 @@ class ObatController extends Controller
     public function update(Request $request, Obat $obat)
     {
         $validatedData = $request->validate([
-            'poster' => 'required|string|max:255',
-            'nm_obat' => 'required|string|max:255',
-            'kategori_id' => 'required|integer',
+            'nm_obat' => 'required',
+            'kategori_id' => 'required',
             'stok' => 'required|integer',
-            'harga' => 'required|integer',
+            'harga' => 'required|numeric',
             // Add validation rules for other obat properties here
         ]);
 

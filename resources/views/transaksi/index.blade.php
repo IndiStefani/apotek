@@ -5,21 +5,17 @@
 <div class="page-wrapper">
     <!-- Page Content -->
     <div class="content container-fluid">
-        <!-- Page Header -->
-        <div class="page-header">
-            <div class="row align-items-center">
-                <div class="col">
-                    <h3 class="page-title">Transaksi</h3>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Transaksi</li>
-                    </ul>
-                </div>
-                <div class="col-auto float-right ml-auto">
-                    <!-- Tombol untuk memicu modal -->
-                    <a href="{{ route('transaksi.create') }}" class="btn btn-primary">Tambah Transaksi</a>
-
-                </div>
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Transaksi</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Transaksi</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto mt-5">
+                <!-- Tombol untuk memicu modal -->
+                <a href="{{ route('transaksi.create') }}" class="btn btn-primary">Tambah Transaksi</a>
             </div>
         </div>
         <!-- /Page Header -->

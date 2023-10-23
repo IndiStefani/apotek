@@ -3,23 +3,23 @@
 
 
 <!-- Content Header (Page header) -->
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Daftar Kategori</h1>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+<div class="row align-items-center">
+    <div class="col">
+        <h3 class="page-title">Daftar Kategori</h3>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Daftar Kategori</li>
+        </ul>
+    </div>
+    <div class="col-auto float-right ml-auto mt-5">
+        <!-- Tombol untuk memicu modal -->
+        <a class="btn btn-primary" style="color : white" data-toggle="modal" data-target="#addCategoryModal">Tambah Kategori</a>
+    </div>
 </div>
-<!-- /.content-header -->
 
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
-        <a class="btn btn-primary btn-md mt-4 mb-3" data-toggle="modal" data-target="#addCategoryModal">
-            Tambah Kategori
-        </a>
         <!-- Small boxes (Stat box) -->
         <div class="row">
             <div class="col-lg-12">

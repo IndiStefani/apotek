@@ -24,27 +24,29 @@
                                 @csrf
                                 @method('PUT')
 
-                                <!-- Nama Obat Input -->
+                                <!-- nm_obat Obat Input -->
                                 <div class="form-group">
-                                    <label for="nama">Nama Obat:</label>
-                                    <input type="text" name="nama" id="nama" class="form-control" value="{{ $obat->nama }}" required>
+                                    <label for="nm_obat">Nama Obat:</label>
+                                    <input type="text" name="nm_obat" id="nm_obat" class="form-control" value="{{ $obat->nm_obat }}" required>
                                 </div>
 
                                 <!-- Kategori Input -->
                                 <div class="form-group">
                                     <label for="kategori">Kategori:</label>
-                                    <select name="kategori_id" id="kategori" class="form-control" value="{{ $obat->nama }}" required>
+                                    <select name="kategori_id" id="kategori" class="form-control" value="{{ $obat->kategori_id }}" required>
                                         <option value="">Pilih kategori</option>
                                         @foreach ($kategoriList as $key=>$kategori)
-                                        <option value="{{ $kategori->id }}">{{$kategori->nm_kategori}}</option>
+                                        <option value="{{ $kategori->id }}" @if ($kategori->id == $obat->kategori_id) selected @endif>
+                                            {{$kategori->nm_kategori}}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
 
-                                <!-- Jumlah Input -->
+                                <!-- stok Input -->
                                 <div class="form-group">
-                                    <label for="jumlah">Jumlah:</label>
-                                    <input type="number" name="jumlah" id="jumlah" class="form-control" value="{{ $obat->jumlah }}" required>
+                                    <label for="stok">stok:</label>
+                                    <input type="number" name="stok" id="stok" class="form-control" value="{{ $obat->stok }}" required>
                                 </div>
 
                                 <!-- Harga Input -->
