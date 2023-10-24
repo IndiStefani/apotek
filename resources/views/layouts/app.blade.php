@@ -101,7 +101,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="#">
                     Apotek
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -115,7 +115,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto float-right">
                         <!-- Authentication Links -->
                         @guest
                         <li class="nav-item">
@@ -153,12 +153,12 @@
                         <ul class="nav flex-column">
                             @if(Auth::user()->Super())
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('super.superhome') }}">
+                                <a class="nav-link active" href="{{ route('super.dashboard') }}">
                                     Dashboard
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('user.indexUser') }}">
                                     User
                                 </a>
                             </li>

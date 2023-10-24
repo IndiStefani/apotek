@@ -41,7 +41,6 @@ class HomeController extends Controller
         $totalUsers = User::count();
         $totalObats = Obat::count();
 
-        return view('super.superhome', compact('totalUsers', 'totalObats'));
+        return view('super.dashboard', compact('totalUsers', 'totalObats'));
     }
-  
 }

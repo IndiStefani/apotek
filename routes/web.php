@@ -2,18 +2,22 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\TransaksiController;
-use App\Models\Kategori;
 
 Route::get('/', function () {
+    return view('index');
+});
+
+Route::get('/login', function () {
     if (Auth::check()) {
         if (Auth::user()->Admin()) {
             return redirect()->route('admin.adminhome');
         } elseif (Auth::user()->Super()) {
-            return redirect()->route('super.superhome');
+            return redirect()->route('super.dashboard');
         }
     }
     return redirect()->route('login');
@@ -35,13 +39,22 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
 
 // superuser dashboard
 Route::middleware(['auth', 'user-access:Super Admin'])->group(function () {
-    Route::get('/SuperAdmin/Dashboard', [HomeController::class, 'super'])->name('super.superhome');
+    Route::get('/SuperAdmin/Dashboard', [HomeController::class, 'super'])->name('super.dashboard');
 });
 
 Route::prefix('Admin/Obat')->middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::get('/', [ObatController::class, 'indexAdmin'])->name('admin.dashboard');
     Route::get('/add', [ObatController::class, 'create'])->name('adminobat.create');
     Route::post('/store', [ObatController::class, 'store'])->name('adminobat.store');
+});
+
+Route::prefix('SuperAdmin/User')->middleware(['auth', 'user-access:Super Admin'])->group(function () {
+    Route::get('/', [UserController::class, 'indexUser'])->name('user.indexUser');
+    Route::get('/add', [UserController::class, 'create'])->name('user.userCreate');
+    Route::post('/store', [UserController::class, 'store'])->name('user.userStore');
+    Route::get('/edit/{user}', [UserController::class, 'edit'])->name('user.userEdit');
+    Route::put('/update/{user}', [UserController::class, 'update'])->name('user.userUpdate');
+    Route::delete('/destroy/{user}', [UserController::class, 'destroy'])->name('user.userDestroy');
 });
 
 Route::prefix('SuperAdmin/Obat')->middleware(['auth', 'user-access:Super Admin'])->group(function () {

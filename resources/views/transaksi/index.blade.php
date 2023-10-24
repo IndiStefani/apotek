@@ -22,17 +22,21 @@
 
         <!-- Search Filter -->
         <div class="row filter-row">
-            <div class="col-sm-6 col-md-3">
-                <div class="form-group form-focus select-focus">
-                    <select class="select floating">
-                        <option>Select Status</option>
-                        <option>Accepted</option>
-                        <option>Declined</option>
-                        <option>Expired</option>
-                    </select>
-                    <label class="focus-label">Status</label>
+
+            <!-- Filter Tanggal -->
+            <div class="row filter-row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group form-focus">
+                        <input type="date" class="form-control floating">
+                        <label class="focus-label">Laporan Harian/Bulanan</label>
+                    </div>
+                </div>
+                <div class="col-auto float-right ml-auto">
+                    <a href="#" class="btn btn-success btn-block" id="filter-button"> Filter </a>
                 </div>
             </div>
+
+
             <div class="col-auto float-right ml-auto">
                 <a href="#" class="btn btn-success btn-block"> Search </a>
             </div>
@@ -109,6 +113,17 @@
         var _this = $(this).parents('tr');
         $('.e_id').val(_this.find('.ids').text());
         $('.estimate_number').val(_this.find('.estimate_number').text());
+    });
+
+    $(document).on('click', '#filter-button', function() {
+        // Dapatkan tanggal yang dipilih
+        var selectedDate = $('input[type="date"]').val();
+
+        // Kirim tanggal ke server atau lakukan proses filter sesuai dengan kebutuhan Anda
+        // Misalnya, Anda dapat menggunakan AJAX untuk mengambil data laporan berdasarkan tanggal.
+
+        // Tampilkan hasil laporan sesuai dengan tanggal yang dipilih
+        // Anda dapat memperbarui tabel laporan atau elemen lainnya untuk menampilkan hasilnya.
     });
 </script>
 
