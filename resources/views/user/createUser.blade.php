@@ -42,7 +42,7 @@
                                 </div>
 
                                 <!-- Usertype Input -->
-                                    <input type="text" name="usertype" class="form-control" value="user" hidden>
+                                    <input type="text" name="usertype" class="form-control" value="User" hidden>
 
 
                                 <div class="form-group">

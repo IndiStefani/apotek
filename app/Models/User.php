@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
     return $this->usertype == 'Admin'; // Sesuaikan dengan cara Anda mengidentifikasi admin
     }
+
+    public function User()
+    {
+    return $this->usertype == 'User'; // Sesuaikan dengan cara Anda mengidentifikasi admin
+    }
 }

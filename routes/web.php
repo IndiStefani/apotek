@@ -7,10 +7,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\PublikController;
 
-Route::get('/', function () {
-    return view('index');
-});
+
 
 Route::get('/login', function () {
     if (Auth::check()) {
@@ -84,4 +83,14 @@ Route::prefix('Transaksi')->middleware(['auth', 'user-access:Super Admin, Admin'
     Route::get('/edit/{Transaksi}', [TransaksiController::class, 'edit'])->name('transaksi.edit');
     Route::put('/update/{Transaksi}', [TransaksiController::class, 'update'])->name('transaksi.update');
     Route::delete('destroy/{id}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
+});
+
+// chart
+Route::prefix('/')->group(function () {
+    Route::get('/', [PublikController::class, 'index'])->name('publik.index');
+    Route::get('/add', [PublikController::class, 'create'])->name('publik.create');
+    Route::post('/store', [PublikController::class, 'store'])->name('publik.store');
+    Route::get('/edit/{publik}', [PublikController::class, 'edit'])->name('publik.edit');
+    Route::put('/update/{publik}', [PublikController::class, 'update'])->name('publik.update');
+    Route::delete('destroy/{id}', [PublikController::class, 'destroy'])->name('publik.destroy');
 });
