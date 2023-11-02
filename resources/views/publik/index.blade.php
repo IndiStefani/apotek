@@ -27,74 +27,33 @@
 </head>
 
 <body>
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#!">Apotek</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="d-flex float-right">
-                    <div id="cart">
-                        <button class="btn btn-outline-dark bi-cart-fill" type="button" onclick="showInvoice()">
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </div>
+    <!-- Navbar -->
+    <div class="container-fluid fixed-top m-0 p-0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#!" style="margin-right: auto;">Apotek</a>
+            <!-- search -->
+            <form class="form-inline ml-auto" id="search-form">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-input">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="search-button">Search</button>
 
-                    <!-- menampilkan modal -->
-                    <div id="invoiceModal" class="modal" style="display: none;">
-                        <div class="modal-content" style="height: 100%; width: 100%; background-color: white;">
-                            <div class="row mt-5">
-                                <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
-                                    <div class="row">
-                                        <div class="text-center">
-                                            <h1>Checkout</h1>
-                                        </div>
-
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-white">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Nama Barang</th>
-                                                        <th>Qty</th>
-                                                        <th>Harga Barang</th>
-                                                        <th>Sub Total</th>
-                                                        <th> </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="temporaryData">
-                                                    <!-- Data temporaryData akan ditampilkan di sini -->
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <td colspan="4" style="text-align: right; font-weight: bold">
-                                                            Total Harga
-                                                        </td>
-                                                        <td>
-                                                            <input class="form-control text-right" type="text" id="invoiceGrandTotal" value="Rp 0.00" readonly>
-                                                        </td>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                            <button type="button" class="btn btn-success btn-lg btn-block">
-                                                Submit<span class="glyphicon"></span>
-                                            </button></td>
-                                            <button type="button" class="btn btn-danger btn-lg btn-block" onclick="closeInvoice()">
-                                                Tutup
-                                            </button></td>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <!-- cart -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form class="d-flex float-right">
+                        <div id="cart">
+                            <button class="btn btn-outline-dark bi-cart-fill" type="button" onclick="showInvoice()">
+                                Cart
+                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            </button>
                         </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </nav>
+                    </form>
+                </div>
+            </form>
+        </nav>
+    </div>
+
     <!-- Header-->
-    <!-- <header class="bg-dark py-5">
+    <!-- <header class="bg-dark py-5 mt-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">Shop in style</h1>
@@ -103,31 +62,97 @@
         </div>
     </header> -->
 
-    <!-- Section-->
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    <!-- menampilkan modal -->
+    <div id="invoiceModal" class="modal" style="display: none;">
+        <div class="modal-content" style="height: 100%; width: 100%; background-color: white;">
+            <div class="row mt-5">
+                <form action="{{ route('publik.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+                        <!-- Cekout -->
+                        <div class="col-lg-7">
+                            <h5 class="mb-3"><a href="#!" onclick="closeInvoice()" class="text-body"><i class="fa fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
 
-                <!-- card produk -->
-                @foreach($obat as $key=>$obat)
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
-                            <img class="card-img-top" src="{{ asset('image/' . $obat->poster) }}" alt="{{ $obat->nm_obat }}" style="max-width: 150px; max-height: 150px;">
-                        </div>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
                             <div class="text-center">
-                                <!-- Product name-->
-                                <p hidden>{{$obat->id}}</p>
-                                <h5 class="fw-bolder">{{$obat->nm_obat}}</h5>
-                                <p hidden>{{$obat->qty}}</p>
-                                <!-- Product price-->
-                                Rp. {{$obat->harga}}
+                                <h1>Checkout</h1>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover table-white">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th style="width: 20%;">Nama Barang</th>
+                                            <th>Qty</th>
+                                            <th style="width: 20%;">Harga Barang</th>
+                                            <th style="width: 20%;">Sub Total</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="temporaryData">
+                                        <!-- Data temporaryData akan ditampilkan di sini -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <!-- Product actions-->
+
+                        <!-- transaksi -->
+                        <div class="col-lg-5">
+                            <div class="card bg-primary text-white rounded-3">
+                                <div class="card-body">
+                                    <form class="mt-4">
+                                        <div class="form-outline form-white mb-4">
+                                            <input type="text" id="nm_klien" name="nm_klien" required="required" class="form-control form-control-lg" siez="20" placeholder="Nama Pelanggan" />
+                                            <label class="form-label" for="typeName">Nama Pelanggan</label>
+                                        </div>
+
+                                        <div class="form-outline form-white mb-4">
+                                            <input type="text" id="alamat" name="alamat" required="required" class="form-control form-control-lg" size="25" placeholder="Alamat" minlength="25" maxlength="25" />
+                                            <label class="form-label" for="typeText">Alamat</label>
+                                        </div>
+
+                                        <div class="form-outline form-white mb-4">
+                                            <input type="text" id="telp" name="telp" required="required" class="form-control form-control-lg" placeholder="+62 **** **** ****" size="12" minlength="10" maxlength="12" />
+                                            <label class="form-label" for="typeExp">No. Telp</label>
+                                        </div>
+                                    </form>
+
+                                    <hr class="my-4">
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <p class="mb-2">Total(Incl. taxes)</p>
+                                        <p class="mb-2"><span id="grand_total"></span></p>
+                                    </div>
+
+                                    <button type="button" class="btn btn-info btn-block btn-lg" onclick="saveData()">
+                                        Checkout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section-->
+    <section class="py-5" style="margin-top: 60px;" id="search-results">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                @foreach($obat as $key=>$obat)
+                <div class="col obat" data-nm_obat="{{ strtolower($obat->nm_obat) }}">
+                    <div class="card text-center">
+                        <div class="d-flex align-items-center justify-content-center" style="max-width:300px">
+                            <div style="width: 150px; height: 150px; overflow: hidden;">
+                                <img class="card-img-top" src="{{ asset('image/' . $obat->poster) }}" alt="{{ $obat->nm_obat }}" style="max-width: 150px; max-height: 150px;">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-tittle">{{$obat->nm_obat}}</h5>
+                            <p hidden>{{$obat->qty}}</p>
+                            <!-- Product price-->
+                            Rp. {{$obat->harga}}
+                        </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center">
                                 <button class="btn btn-primary mt-auto" onclick="addToCart('{{ $obat->id }}', '{{ $obat->nm_obat }}', '{{ $obat->qty }}', '{{ $obat->harga }}')"> Add to Cart </button>
@@ -140,11 +165,17 @@
         </div>
     </section>
     <!-- Footer-->
-    <footer class="py-3 bg-dark fixed-bottom">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Apotek 2023</p>
-        </div>
-    </footer>
+    <div class="container-fluid m-0 p-0">
+        <footer class="text-center text-lg-start text-white" style="background-color: #d3d3d3;">
+            <!-- Copyright -->
+            <div class="text-center text-white p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                Copyright &copy;
+                <a class="text-white" href="#">Apotek <?php echo date('Y'); ?></a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+
+    </div>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
@@ -274,9 +305,9 @@
             totalHarga += item.sub_total;
         });
 
-        // Mengupdate invoiceGrandTotal
-        var invoiceGrandTotal = document.getElementById('invoiceGrandTotal');
-        invoiceGrandTotal.value = 'Rp ' + totalHarga.toFixed(2);
+        // Mengupdate grand_total
+        var grand_total = document.getElementById('grand_total');
+        grand_total.value = totalHarga.toFixed(2);
     }
 
 
@@ -297,6 +328,114 @@
             },
         });
     }
+
+
+
+    // Bagian JavaScript
+    function searchObat(query) {
+        query = query.toLowerCase();
+
+        // Mencari obat yang cocok dengan query
+        var results = [];
+
+        // Loop melalui elemen-elemen dengan class 'obat' yang ada dalam HTML
+        var obatElements = document.querySelectorAll('.obat');
+
+        obatElements.forEach(function(obatElement) {
+            var nm_obat = obatElement.getAttribute('data-nm_obat');
+
+            if (nm_obat.includes(query)) {
+                results.push({
+                    nm_obat: nm_obat,
+                    // Tambahkan atribut lain jika diperlukan
+                });
+            }
+        });
+
+        return results;
+    }
+
+    function displaySearchResults(results) {
+        var searchResults = document.getElementById('search-results');
+        searchResults.innerHTML = '';
+
+        if (results.length === 0) {
+            searchResults.innerHTML = '<p>No results found.</p>';
+        } else {
+            var ul = document.createElement('ul');
+            results.forEach(function(result) {
+                var li = document.createElement('li');
+                li.textContent = result.nm_obat;
+                ul.appendChild(li);
+            });
+            searchResults.appendChild(ul);
+        }
+    }
+
+    // Tangani klik pada tombol pencarian
+    var searchButton = document.getElementById('search-button');
+    searchButton.addEventListener('click', function() {
+        var searchInput = document.getElementById('search-input');
+        var searchTerm = searchInput.value;
+        var searchResults = searchObat(searchTerm);
+        displaySearchResults(searchResults);
+    });
+
+    // Tangani perubahan pada input pencarian saat pengguna mengetikkan
+    var searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', function() {
+        var searchTerm = searchInput.value;
+        var searchResults = searchObat(searchTerm);
+        displaySearchResults(searchResults);
+    });
+
+
+    // Fungsi untuk menyimpan data
+    function saveData() {
+        // Generate Kode Transaksi
+        var kd_transaksi = 'KR-' + new Date().getTime();
+
+        // Mengambil data sementara
+        var nm_klien = document.getElementById('nm_klien').value;
+        var alamat = document.getElementById('alamat').value;
+        var telp = document.getElementById('telp').value;
+        var total_harga = document.getElementById('grand_total').value;
+
+        // Menambahkan temporaryData menjadi array details
+        var details = temporaryData.map(function(data) {
+            return {
+                nm_obat: data.nm_obat,
+                qty: data.qty,
+                sub_total: data.sub_total
+            };
+        });
+
+        // Logging untuk memeriksa data sebelum dikirim
+        console.log(details, kd_transaksi, nm_klien, alamat, telp);
+
+        // Kirim data ke server menggunakan Ajax
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("publik.store") }}',
+            data: {
+                kd_transaksi: kd_transaksi,
+                nm_klien: nm_klien,
+                alamat: alamat,
+                telp: telp,
+                total_harga: total_harga,
+                details: details,
+                _token: '{{ csrf_token() }}',
+            },
+            success: function(response) {
+                alert('Data berhasil disimpan. Kode Transaksi: ' + kd_transaksi);
+                window.location.href = '{{route("publik.index")}}';
+            },
+            error: function(error) {
+                console.error('Error saving data:', error);
+                alert('Gagal menyimpan data.');
+            }
+        });
+    };
 </script>
 
 </html>

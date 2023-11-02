@@ -31,6 +31,8 @@ class PublikController extends BaseController
         $request->validate([
             'kd_transaksi' => 'required',
             'nm_klien' => 'required',
+            'alamat' => 'required',
+            'telp' => 'required',
             'total_harga' => 'required',
             'details.*transaksi_id' => 'required',
             'details.*.nm_obat' => 'required',
@@ -55,6 +57,8 @@ class PublikController extends BaseController
         $transaksi = Transaksi::create([
             'kd_transaksi' => $request->input('kd_transaksi'),
             'nm_klien' => $request->input('nm_klien'),
+            'alamat' => $request->input('alamat'),
+            'telp' => $request->input('telp'),
             'total_harga' => $request->input('total_harga'),
         ]);
 

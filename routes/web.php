@@ -79,7 +79,7 @@ Route::prefix('Transaksi')->middleware(['auth', 'user-access:Super Admin, Admin'
     Route::get('/', [TransaksiController::class, 'index'])->name('transaksi.index');
     Route::get('/add', [TransaksiController::class, 'create'])->name('transaksi.create');
     Route::post('/store', [TransaksiController::class, 'store'])->name('transaksi.store');
-    Route::get('/view/{kd_transaksi}', [TransaksiController::class, 'view'])->name('transaksi.view');
+    Route::get('/view/{id}', [TransaksiController::class, 'view'])->name('transaksi.view');
     Route::get('/edit/{Transaksi}', [TransaksiController::class, 'edit'])->name('transaksi.edit');
     Route::put('/update/{Transaksi}', [TransaksiController::class, 'update'])->name('transaksi.update');
     Route::delete('destroy/{id}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');

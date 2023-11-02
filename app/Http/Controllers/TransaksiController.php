@@ -6,6 +6,7 @@ use App\Models\Transaksi;
 use App\Models\Obat;
 use App\Models\Detail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
@@ -32,6 +33,8 @@ class TransaksiController extends Controller
         $request->validate([
             'kd_transaksi' => 'required',
             'nm_klien' => 'required',
+            'alamat' => 'required',
+            'telp' => 'required',
             'total_harga' => 'required',
             'details.*transaksi_id' => 'required',
             'details.*.nm_obat' => 'required',
@@ -56,6 +59,8 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::create([
             'kd_transaksi' => $request->input('kd_transaksi'),
             'nm_klien' => $request->input('nm_klien'),
+            'alamat' => $request->input('alamat'),
+            'telp' => $request->input('telp'),
             'total_harga' => $request->input('total_harga'),
         ]);
 
@@ -79,12 +84,9 @@ class TransaksiController extends Controller
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil disimpan.');
     }
 
-    public function view($kd_transaksi)
-    {
-        // Ambil data transaksi dari database berdasarkan kd_transaksi
-        $transaksi = Transaksi::where('kd_transaksi', $kd_transaksi)->first();
-
-        // Kirim data ke tampilan
-        return view('transaksi.view', compact('transaksi'));
-    }
+    public function view($id)
+{
+    $transaksi = Transaksi::all(); // Gantilah dengan logika pengambilan data sesuai kebutuhan Anda.
+    return view('transaksi.view', compact('transaksi'));
+}
 }

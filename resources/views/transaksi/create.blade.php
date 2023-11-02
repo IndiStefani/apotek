@@ -25,11 +25,27 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3" for="nm_klien">Nama Pembeli</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="mb-3">
+                                    <label class="control-label col-md-3 col-sm-3 mt-2" for="nm_klien">Nama Pembeli</label>
                                     <div class="row">
                                         <div class="col-xs-6">
                                             <input id="nm_klien" class="form-control" data-validate-length-range="6" data-validate-words="1" name="nm_klien" required="required" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="control-label col-md-3 col-sm-3 mt-2" for="alamat">Alamat</label>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <input id="alamat" class="form-control" data-validate-length-range="6" data-validate-words="1" name="alamat" required="required" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="control-label col-md-3 col-sm-3 mt-2" for="telp">No. Telp</label>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <input id="telp" class="form-control" data-validate-length-range="6" data-validate-words="1" name="telp" required="required" type="number">
                                         </div>
                                     </div>
                                 </div>
@@ -249,6 +265,8 @@
 
         // Mengambil data sementara
         var nm_klien = document.getElementById('nm_klien').value;
+        var alamat = document.getElementById('alamat').value;
+        var telp = document.getElementById('telp').value;
         var total_harga = document.getElementById('grand_total').value;
 
         // Menambahkan temporaryData menjadi array details
@@ -261,7 +279,7 @@
         });
 
         // Logging untuk memeriksa data sebelum dikirim
-        console.log(details);
+        console.log(details, kd_transaksi, nm_klien, alamat, telp, total_harga);
 
         // Kirim data ke server menggunakan Ajax
         $.ajax({
@@ -270,6 +288,8 @@
             data: {
                 kd_transaksi: kd_transaksi,
                 nm_klien: nm_klien,
+                alamat: alamat,
+                telp: telp,
                 total_harga: total_harga,
                 details: details,
                 _token: '{{ csrf_token() }}',
