@@ -7,6 +7,7 @@ use App\Models\Obat;
 use App\Models\Detail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class TransaksiController extends Controller
 {
@@ -84,9 +85,21 @@ class TransaksiController extends Controller
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil disimpan.');
     }
 
+    public function destroy($id)
+    {
+        // Hapus data pada tb_transaksi
+        Detail::where('transaksi_id', $id)->delete();
+
+        // Hapus data pada tb_transaksi
+        Transaksi::find($id)->delete();
+
+        return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dihapus.');
+    }
+
+
     public function view($id)
-{
-    $transaksi = Transaksi::all(); // Gantilah dengan logika pengambilan data sesuai kebutuhan Anda.
-    return view('transaksi.view', compact('transaksi'));
-}
+    {
+        $transaksi = Transaksi::all(); // Gantilah dengan logika pengambilan data sesuai kebutuhan Anda.
+        return view('transaksi.view', compact('transaksi'));
+    }
 }

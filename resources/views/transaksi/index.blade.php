@@ -64,7 +64,17 @@
                                 <td>{{ $transaksi->nm_klien }}</td>
                                 <td>{{ $transaksi->created_at }}</td> {{-- Format tanggal sesuai dengan kebutuhan --}}
                                 <td>Rp{{ $transaksi->total_harga }}</td>
-                                <td></td>
+                                <td>
+                                    <form action="{{ route('transaksi.destroy', $transaksi->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this transaksi?')">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </td>
+
+
                             </tr>
                             @endforeach
                         </tbody>
@@ -75,46 +85,10 @@
     </div>
     <!-- /Page Content -->
 
-    <!-- Delete Estimate Modal -->
-    <div class="modal custom-modal fade" id="delete_estimate" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="form-header">
-                        <h3>Delete Estimate</h3>
-                        <p>Are you sure want to delete?</p>
-                    </div>
-                    <form action="" method="POST">
-                        @csrf
-                        <input type="hidden" name="id" class="e_id" value="">
-                        <input type="hidden" name="estimate_number" class="estimate_number" value="">
-                        <div class="row">
-                            <div class="col-6">
-                                <button type="submit" class="btn btn-primary continue-btn submit-btn">Delete</button>
-                            </div>
-                            <div class="col-6">
-                                <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Delete Estimate Modal -->
-
 </div>
 <!-- /Page Wrapper -->
 
-@section('script')
-{{-- delete model --}}
 <script>
-    $(document).on('click', '.delete_estimate', function() {
-        var _this = $(this).parents('tr');
-        $('.e_id').val(_this.find('.ids').text());
-        $('.estimate_number').val(_this.find('.estimate_number').text());
-    });
-
     $(document).on('click', '#filter-button', function() {
         // Dapatkan tanggal yang dipilih
         var selectedDate = $('input[type="date"]').val();
@@ -126,7 +100,4 @@
         // Anda dapat memperbarui tabel laporan atau elemen lainnya untuk menampilkan hasilnya.
     });
 </script>
-
-
-@endsection
 @endsection
