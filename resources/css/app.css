@@ -1,0 +1,22 @@
+@media print {
+    /* Sembunyikan elemen-elemen yang tidak perlu dicetak */
+    body, html {
+        visibility: hidden;
+    }
+
+    .card {
+        visibility: visible;
+    }
+
+    /* Atur lebar dan margin pada konten cetakan */
+    .card {
+        width: 100%;
+        margin: 0;
+    }
+
+    /* Atur ukuran font, warna teks, dan lainnya sesuai kebutuhan cetakan */
+    /* Misalnya: */
+    .card p {
+        font-size: 12pt;
+    }
+}

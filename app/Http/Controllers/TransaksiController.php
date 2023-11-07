@@ -99,7 +99,14 @@ class TransaksiController extends Controller
 
     public function view($id)
     {
-        $transaksi = Transaksi::all(); // Gantilah dengan logika pengambilan data sesuai kebutuhan Anda.
-        return view('transaksi.view', compact('transaksi'));
+        $transaksi = Transaksi::find($id); // Gantilah dengan logika pengambilan data sesuai kebutuhan Anda.
+
+        if (!$transaksi) {
+            return abort(404); // Atau tampilkan halaman 404 jika tidak ditemukan
+        }
+
+        // Mengambil detail transaksi yang terkait dengan transaksi tersebut
+        $details = $transaksi->details;
+        return view('transaksi.view', compact('transaksi', 'details'));
     }
 }

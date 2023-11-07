@@ -43,7 +43,7 @@
                         <div id="cart">
                             <button class="btn btn-outline-dark bi-cart-fill" type="button" onclick="showInvoice()">
                                 Cart
-                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                                <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart-badge">0</span>
                             </button>
                         </div>
                     </form>
@@ -227,6 +227,7 @@
         } else {
             var ul = document.createElement("ul");
             var totalHarga = 0; // Tambahkan variabel totalHarga
+            var totalItems = 0; // Menambah variabel totalItems
 
             temporaryData.forEach((item) => {
                 // Hitung total harga
@@ -239,6 +240,8 @@
 
             temporaryDataDiv.appendChild(ul);
             temporaryDataDiv.innerHTML += '<p>Total: Rp. ${totalHarga.toFixed(2)}</p>'; // Menampilkan total harga
+            var badgeSpan = document.getElementById("cart-badge"); // Menggunakan id yang baru
+            badgeSpan.textContent = totalItems; // Memperbarui jumlah item di keranjang
 
             var badgeSpan = document.querySelector(".badge");
 
@@ -309,7 +312,6 @@
         var grand_total = document.getElementById('grand_total');
         grand_total.value = totalHarga.toFixed(2);
     }
-
 
     // Fungsi untuk menambahkan item ke keranjang melalui AJAX
     function saveToCart(nm_obat, qty, harga, sub_total) {
