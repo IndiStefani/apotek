@@ -104,9 +104,9 @@
     // Isi data
     @foreach ($details as $detail)
         var row = [
-            {{ $loop->index + 1 }},
+            "{{ $loop->index + 1 }}",
             "{{ $detail->nm_obat }}",
-            {{ $detail->qty }},
+            "{{ $detail->qty }}",
             "{{ $detail->sub_total }}"
         ];
         data.push(row);

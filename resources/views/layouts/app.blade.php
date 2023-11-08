@@ -213,7 +213,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="dropdown-item" href="{{ route('transaksi.index') }}">
+                                <a class="nav-link" href="{{ route('transaksi.index') }}">
                                     Transaksi
                                 </a>
                                 <!-- Tambahkan menu dropdown lainnya jika diperlukan -->
