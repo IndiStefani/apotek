@@ -1,10 +1,12 @@
 <?php
   
 namespace App\Http\Controllers;
- 
+
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\obat;
+use App\Models\Transaksi;
 use App\Models\user; 
   
 class HomeController extends Controller
@@ -40,7 +42,9 @@ class HomeController extends Controller
     {
         $totalUsers = User::count();
         $totalObats = Obat::count();
+        $totalTransaksis = Transaksi::count();
+        $totalKategoris = Kategori::count();
 
-        return view('super.dashboard', compact('totalUsers', 'totalObats'));
+        return view('super.dashboard', compact('totalUsers', 'totalObats', 'totalTransaksis', 'totalKategoris'));
     }
 }

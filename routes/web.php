@@ -63,6 +63,7 @@ Route::prefix('SuperAdmin/Obat')->middleware(['auth', 'user-access:Super Admin']
     Route::get('/edit/{obat}', [ObatController::class, 'edit'])->name('super.edit');
     Route::put('/update/{obat}', [ObatController::class, 'update'])->name('super.update');
     Route::delete('/destroy/{obat}', [ObatController::class, 'destroy'])->name('super.destroy');
+    Route::get('/obat-data', [ObatController::class, 'obatData'])->name('super.obatData');
 });
 
 Route::prefix('SuperAdmin/Kategori')->middleware(['auth', 'user-access:Super Admin'])->group(function () {

@@ -93,7 +93,7 @@ class ObatController extends Controller
         // Check if the obat has a poster (image)
         if ($obat->poster) {
             $namaposter = public_path('image/' . $obat->poster);
-    
+
             if (File::exists($namaposter)) {
                 File::delete($namaposter);
             }
@@ -111,5 +111,11 @@ class ObatController extends Controller
     {
         $obatList = Obat::with('kategori')->get();
         return view('super.superobat', compact('obatList'));
+    }
+
+    public function obatData()
+    {
+        $obatData = Obat::all();
+        return response()->json($obatData);
     }
 }
