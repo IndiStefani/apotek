@@ -14,9 +14,15 @@ class UserController extends Controller
         return view('super.user.index', compact('users'));
     }
 
+    public function indexUser()
+    {
+        $users = User::all();
+        return view('user.indexUser', compact('users'));
+    }
+
     public function create()
     {
-        return view('super.user.create');
+        return view('user.createUser');
     }
 
     public function store(Request $request)
@@ -35,22 +41,24 @@ class UserController extends Controller
             'usertype' => $request->input('usertype'),
         ]);
 
-        return redirect()->route('user.index')->with('success', 'User telah ditambahkan.');
+        return redirect()->route('user.indexUser')->with('success', 'User telah ditambahkan.');
     }
 
     public function edit(User $user)
     {
-        return view('super.user.edit', compact('user'));
+        return view('user.userEdit', compact('user'));
     }
 
     public function update(Request $request, User $user)
     {
         $request->validate([
+            'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'usertype' => 'required',
         ]);
 
         $data = [
+            'name' => $request->input('name'),
             'email' => $request->input('email'),
             'usertype' => $request->input('usertype'),
         ];
@@ -62,13 +70,12 @@ class UserController extends Controller
         // Update data pengguna ke database
         $user->update($data);
 
-        return redirect()->route('user.index')->with('success', 'User telah diperbarui.');
+        return redirect()->route('user.indexUser')->with('success', 'User telah diperbarui.');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-
-        return redirect()->route('user.index')->with('success', 'User telah dihapus.');
+        return redirect()->route('user.indexUser')->with('success', 'User telah dihapus.');
     }
 }

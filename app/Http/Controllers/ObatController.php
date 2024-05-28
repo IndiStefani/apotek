@@ -73,11 +73,10 @@ class ObatController extends Controller
     public function update(Request $request, Obat $obat)
     {
         $validatedData = $request->validate([
-            'poster' => 'required|string|max:255',
-            'nm_obat' => 'required|string|max:255',
-            'kategori_id' => 'required|integer',
+            'nm_obat' => 'required',
+            'kategori_id' => 'required',
             'stok' => 'required|integer',
-            'harga' => 'required|integer',
+            'harga' => 'required|numeric',
             // Add validation rules for other obat properties here
         ]);
 
@@ -94,7 +93,7 @@ class ObatController extends Controller
         // Check if the obat has a poster (image)
         if ($obat->poster) {
             $namaposter = public_path('image/' . $obat->poster);
-    
+
             if (File::exists($namaposter)) {
                 File::delete($namaposter);
             }
@@ -112,5 +111,11 @@ class ObatController extends Controller
     {
         $obatList = Obat::with('kategori')->get();
         return view('super.superobat', compact('obatList'));
+    }
+
+    public function obatData()
+    {
+        $obatData = Obat::all();
+        return response()->json($obatData);
     }
 }
