@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<nav class="sidebar sidebar-offcanvas col-md-3 col-lg-2 d-md-block" id="sidebar">
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         @if(Auth::user()->Super())
         <li class="nav-item">
